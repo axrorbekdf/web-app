@@ -151,7 +151,7 @@
                 method: 'GET',
                 headers
             });
-            
+
             const messageResponse = await fetch('https://185.219.81.93/api/messages/'+user.value.id, {
                 method: 'GET',
                 headers
@@ -172,7 +172,7 @@
             const todo_data = await todosResponse.json();
             
             messages.value = messages_data.data
-            messages.value = todo_data.data
+            messages.value = todo_data
             channels.value = channels_data.data
 
           } catch (e) {
