@@ -58,7 +58,7 @@
 
         const sendToApi = async (item) => {
             try {
-                const res = await fetch('https://185.219.81.93/send/message', {
+                const res = await fetch('https://185.219.81.93/api/send/message', {
                 method: 'POST',
                 headers,
                 body: JSON.stringify({
@@ -147,11 +147,11 @@
               userError.value = ('Telegram WebApp foydalanuvchi maʼlumotlari mavjud emas');
             }
 
-            const messageResponse = await fetch('https://185.219.81.93/messages/'+user.value.id, {
+            const messageResponse = await fetch('https://185.219.81.93/api/messages/'+user.value.id, {
                 method: 'GET',
                 headers
             });
-            const channelResponse = await fetch('https://185.219.81.93/channels/'+user.value.id, {
+            const channelResponse = await fetch('https://185.219.81.93/api/channels/'+user.value.id, {
                 method: 'GET',
                 headers
             });
