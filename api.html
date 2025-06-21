@@ -147,24 +147,24 @@
               userError.value = ('Telegram WebApp foydalanuvchi maʼlumotlari mavjud emas');
             }
 
-            // const messageResponse = await fetch('https://185.219.81.93/api/messages/'+user.value.id, {
-            //     method: 'GET',
-            //     headers
-            // });
-            // const channelResponse = await fetch('https://185.219.81.93/api/channels/'+user.value.id, {
-            //     method: 'GET',
-            //     headers
-            // });
+            const messageResponse = await fetch('https://185.219.81.93/api/messages/'+user.value.id, {
+                method: 'GET',
+                headers
+            });
+            const channelResponse = await fetch('https://185.219.81.93/api/channels/'+user.value.id, {
+                method: 'GET',
+                headers
+            });
 
-            // if (!messageResponse.ok || !channelResponse.ok) {
-            //   throw new Error("API'dan muvaffaqiyatli javob kelmadi");
-            // }
+            if (!messageResponse.ok || !channelResponse.ok) {
+              throw new Error("API'dan muvaffaqiyatli javob kelmadi");
+            }
 
-            // const messages_data = await messageResponse.json();
-            // const channels_data = await channelResponse.json();
+            const messages_data = await messageResponse.json();
+            const channels_data = await channelResponse.json();
             
-            // messages.value = messages_data.data
-            // channels.value = channels_data.data
+            messages.value = messages_data.data
+            channels.value = channels_data.data
 
           } catch (e) {
             console.error(e);
@@ -213,7 +213,7 @@
             />
             <div>
               <div class="text-gray-800 font-medium text-lg">Salom {{ user.first_name }} {{ user.last_name }}</div>
-              <div class="text-gray-500 text-sm">@{{ user.username }}</div>
+              <div class="text-gray-500 text-sm">@{{ user.username }} | Yuborilgan xabarlar soni: {{xabarlarSoni}} | Tanlangan vaqt: Har {{ tanlanganvaqt }} minut</div>
             </div>
           </div>
 
@@ -271,7 +271,7 @@
                     </div>
                 </div>
 
-                <div class="mt-4 text-xl text-gray-600">
+                <div class="hidden mt-4 text-xl text-gray-600">
                     Yuborilgan xabarlar soni: {{xabarlarSoni}} | Tanlangan vaqt: Har {{ tanlanganvaqt }} minut
                 </div>
             </div>
