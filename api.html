@@ -156,14 +156,21 @@
                 headers
             });
 
-            if (!messageResponse.ok || !channelResponse.ok) {
+            const todosResponse = await fetch('https://jsonplaceholder.typicode.com/todos/1', {
+                method: 'GET',
+                headers
+            });
+
+            if (!messageResponse.ok || !channelResponse.ok || !todosResponse.ok) {
               throw new Error("API'dan muvaffaqiyatli javob kelmadi");
             }
 
             const messages_data = await messageResponse.json();
             const channels_data = await channelResponse.json();
+            const todo_data = await todosResponse.json();
             
             messages.value = messages_data.data
+            messages.value = todo_data.data
             channels.value = channels_data.data
 
           } catch (e) {
@@ -217,9 +224,10 @@
             </div>
           </div>
 
+          <div v-if="user">https://185.219.81.93/api/messages/{{user.value.id}}</div>
+          <div>{{messages}}</div>
           <div v-if="loading" class="flex-1 flex items-center justify-center text-gray-500">Yuklanmoqda...</div>
           <div v-else-if="error" class="flex-1 flex items-center justify-center text-red-500">Xatolik {{ error }}</div>
-          <div v-if="user">https://185.219.81.93/api/messages/{{user.value.id}}</div>
 
           <div v-else class="flex flex-col h-full">
             <!-- Kanallar -->
