@@ -147,28 +147,28 @@
               userError.value = ('Telegram WebApp foydalanuvchi maʼlumotlari mavjud emas');
             }
 
-            const messageResponse = await fetch('https://185.219.81.93/api/messages/'+user.value.id, {
-                method: 'GET',
-                headers
-            });
-            const channelResponse = await fetch('https://185.219.81.93/api/channels/'+user.value.id, {
-                method: 'GET',
-                headers
-            });
+            // const messageResponse = await fetch('https://185.219.81.93/api/messages/'+user.value.id, {
+            //     method: 'GET',
+            //     headers
+            // });
+            // const channelResponse = await fetch('https://185.219.81.93/api/channels/'+user.value.id, {
+            //     method: 'GET',
+            //     headers
+            // });
 
-            if (!messageResponse.ok || !channelResponse.ok) {
-              throw new Error("API'dan muvaffaqiyatli javob kelmadi");
-            }
+            // if (!messageResponse.ok || !channelResponse.ok) {
+            //   throw new Error("API'dan muvaffaqiyatli javob kelmadi");
+            // }
 
-            const messages_data = await messageResponse.json();
-            const channels_data = await channelResponse.json();
+            // const messages_data = await messageResponse.json();
+            // const channels_data = await channelResponse.json();
             
-            messages.value = messages_data.data
-            channels.value = channels_data.data
+            // messages.value = messages_data.data
+            // channels.value = channels_data.data
 
           } catch (e) {
             console.error(e);
-            error.value = "Xatolik:"+e;
+            error.value = e.messages;
           } finally {
             loading.value = false;
           }
