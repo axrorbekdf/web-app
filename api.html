@@ -146,7 +146,8 @@
             } else {
               userError.value = ('Telegram WebApp foydalanuvchi maʼlumotlari mavjud emas');
             }
-
+            // +user.value.id
+            // +user.value.id
             const messageResponse = await fetch('https://labbay-shopiraka.uz/api/messages/'+user.value.id, {
                 method: 'GET',
                 headers
@@ -228,7 +229,7 @@
               <div
                 v-for="message in messages"
                 :key="message.id"
-                class="relative inline-block min-w-[250px] max-h-[200px] overflow-y-auto bg-blue-400 text-white m-2 p-3 rounded text-start whitespace-pre-line"
+                class="relative inline-block min-w-[250px] max-h-[120px] overflow-y-auto bg-blue-400 text-white m-2 p-3 rounded text-start whitespace-pre-line"
               >
                 <!-- Status belgisi o‘ng yuqorida -->
                 <span
@@ -238,13 +239,16 @@
                     Active
                 </span>
 
-                <div v-html="message.text"></div>
+                <div class="text-sm" v-html="message.text"></div>
               </div>
             </div>
 
             <div class="p-4">
-              <p class="text-2xl d-none">
-                Keyingi yuborish {{ formattedTime }}
+              <p class="relative text-2xl d-none">
+                Keyingi yuborish 
+                <span class="absolute bg-green-500 right-1 text-md px-3 text-white mx-3 rounded">
+                    {{ formattedTime }}
+                </span>
               </p>
               
             </div>
@@ -254,22 +258,22 @@
                 <p class="font-semibold mb-2">Vaqt oralig'ini tanlang:</p>
                 <div class="overflow-x-auto whitespace-nowrap">
                     <div class="inline-flex space-x-4">
-                    <div
-                        v-for="(vaqt, index) in vaqtlar"
-                        :key="index"
-                        class="flex items-center space-x-2 bg-white px-3 py-2 rounded shadow min-w-max"
-                    >
-                        <input
-                        type="radio"
-                        :value="vaqt.value"
-                        v-model="tanlanganvaqt"
-                        class="text-blue-600"
-                        :id="'vaqt-' + index"
-                        />
-                        <label :for="'vaqt-' + index" class="text-gray-700 cursor-pointer">
-                        {{ vaqt.title }}
-                        </label>
-                    </div>
+                      <div
+                          v-for="(vaqt, index) in vaqtlar"
+                          :key="index"
+                          class="flex items-center space-x-2 bg-white px-3 py-2 rounded shadow min-w-max"
+                      >
+                          <input
+                          type="radio"
+                          :value="vaqt.value"
+                          v-model="tanlanganvaqt"
+                          class="text-blue-600"
+                          :id="'vaqt-' + index"
+                          />
+                          <label :for="'vaqt-' + index" class="text-gray-700 cursor-pointer">
+                          {{ vaqt.title }}
+                          </label>
+                      </div>
                     </div>
                 </div>
 
@@ -299,6 +303,9 @@
                 <button
                     @click="toggleProcess"
                     class="bg-green-600 text-white px-6 py-3 rounded-full shadow-lg text-lg"
+                    :class="[
+                      isRunning ? 'bg-orange-600' : 'bg-green-600'
+                    ]"
                 >
                     {{ isRunning ? 'To‘xtatish ' : 'Ishga tushurish' }}
                 </button>
